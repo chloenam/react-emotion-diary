@@ -1,5 +1,5 @@
 import "./App.css";
-import { useReducer } from "react";
+import { useReducer, useRef } from "react";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import New from "./pages/New";
@@ -27,18 +27,43 @@ const mockData = [
 ];
 
 function reducer(state, action) {
-  return state;
+  switch (action.type) {
+    case "CREATE":
+      return [action.data, ...state];
+  }
 }
 
-// 1. '/' : 모든 일기를 조회하는 Home 페이지
-// 2. '/new' : 새로운 일기를 작성하는 New 페이지
-// 3. '/diary' : 일기를 상세히 조회하는 Diary 페이지
-// 4. '/edit' : 일기를 수정하는 Edit 페이지
 function App() {
   const [data, dispatch] = useReducer(reducer, mockData);
+  const idRef = useRef(3);
+
+  // 새로운 일기 추가
+  const onCreate = (createdDate, emotionId, content) => {
+    // 새로운 일기를 추가하는 기능
+    dispatch({
+      type: "CREATE",
+      data: {
+        id: idRef.current++,
+        createdDate,
+        emotionId,
+        content,
+      },
+    });
+  };
+
+  // 기존 일기 수정
+
+  // 기존 일기 삭제
 
   return (
     <>
+      <button
+        onClick={() => {
+          onCreate(new Date().getTime(), 1, "hello");
+        }}
+      >
+        TEST
+      </button>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<New />} />
