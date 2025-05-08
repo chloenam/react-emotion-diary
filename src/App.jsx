@@ -34,6 +34,12 @@ function reducer(state, action) {
       return state.map((item) =>
         String(item.id) === String(action.data.id) ? action.data : item
       );
+
+    case "DELETE":
+      return state.filter((item) => String(item.id) !== String(action.id));
+
+    default:
+      return state;
   }
 }
 
@@ -69,6 +75,12 @@ function App() {
   };
 
   // 기존 일기 삭제
+  const onDelete = (id) => {
+    dispatch({
+      type: "DELETE",
+      id,
+    });
+  };
 
   return (
     <>
@@ -85,6 +97,13 @@ function App() {
         }}
       >
         수정TEST
+      </button>
+      <button
+        onClick={() => {
+          onDelete(1);
+        }}
+      >
+        삭제TEST
       </button>
       <Routes>
         <Route path="/" element={<Home />} />
