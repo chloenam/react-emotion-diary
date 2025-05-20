@@ -6,10 +6,6 @@ import New from "./pages/New";
 import Diary from "./pages/Diary";
 import Edit from "./pages/Edit";
 import Notfound from "./pages/Notfound";
-import Button from "./components/Button";
-import Header from "./components/Header";
-
-import { getEmotionImage } from "./util/get-emotion-images";
 
 const mockData = [
   {
